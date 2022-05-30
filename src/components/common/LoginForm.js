@@ -15,18 +15,17 @@ class LoginForm extends Component {
     this.setState({error: '', loading: true});
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
-      .then(this.onLoginSuccess.bind(this))
+      .then(this.onLoginSuccess())
       .catch(() => {
         createUserWithEmailAndPassword(auth, email, password)
-          .then(this.onLoginSuccess.bind(this))
+          .then(this.onLoginSuccess())
           .catch(() => {
-            this.onLoginFail.bind(this);
+            this.onLoginFail();
           });
       });
   }
 
   onLoginSuccess() {
-    console.log('SUCX');
     this.state = {
       email: '',
       password: '',
@@ -36,7 +35,6 @@ class LoginForm extends Component {
   }
 
   onLoginFail() {
-    console.log('Fail');
     this.setState({loading: false, error: 'Authentication failed!'});
   }
 
